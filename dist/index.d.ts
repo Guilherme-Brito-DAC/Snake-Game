@@ -17,6 +17,7 @@ declare class Cobra {
     private x;
     private y;
     constructor(_jogo: Jogo);
+    limparTiles(): void;
     colidiuComBorda(): boolean;
     colidiuComSiMesmo(): boolean;
     comeuComida(): boolean;

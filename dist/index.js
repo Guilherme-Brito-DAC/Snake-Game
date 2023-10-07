@@ -62,12 +62,14 @@ class Cobra {
         this.moverCobra();
         this.corpo.push([this.x, this.y]);
         const intervalo = setInterval(() => {
+            this.limparTiles();
             if (this.colidiuComBorda() || this.colidiuComSiMesmo()) {
                 clearInterval(intervalo);
                 iniciarJogo();
                 return;
             }
             else {
+                this.limparTiles();
                 if (this.comeuComida()) {
                     this.jogo.comeuComida();
                     this.corpo.push([this.x, this.y]);
@@ -76,11 +78,6 @@ class Cobra {
                 for (let i = this.corpo.length - 1; i > 0; i--) {
                     this.corpo[i] = this.corpo[i - 1];
                 }
-                Array.from(jogoElement.children).forEach((x) => {
-                    x.classList.remove("cobra");
-                    document.getElementById(x.id).style.opacity = "1";
-                    document.getElementById(x.id).style.boxShadow = "";
-                });
                 if (tileAtual)
                     tileAtual.classList.remove("cobra");
                 this.x += this.velocidadeX;
@@ -101,7 +98,14 @@ class Cobra {
                     }
                 }
             }
-        }, 150);
+        }, 100);
+    }
+    limparTiles() {
+        Array.from(jogoElement.children).forEach((x) => {
+            x.classList.remove("cobra");
+            document.getElementById(x.id).style.opacity = "1";
+            document.getElementById(x.id).style.boxShadow = "";
+        });
     }
     colidiuComBorda() {
         if (this.x > 16 || this.x < 1 || this.y > 16 || this.y < 1)
